@@ -2,7 +2,7 @@ class Todo < ApplicationRecord
   belongs_to :project
 
   def complete
-    self.isCompleted = true
+    self.isCompleted = !self.isCompleted
     save
   end
 end
