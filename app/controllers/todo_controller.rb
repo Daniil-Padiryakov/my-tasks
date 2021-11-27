@@ -1,12 +1,16 @@
 class TodoController < ApplicationController
-
   # POST /todos
   def create
-    @todo = Todo.new(todo_params)
     if todo_params[:project_id] == nil
       @project = Project.new(project_params)
       @project.save
+
+      @todo = Todo.new(todo_params)
+      @project_last = Project.last
+      @todo[:project_id] = @project_last.id
+      @todo.save
     else
+      @todo = Todo.new(todo_params)
       @todo.save
       end
   end
@@ -15,7 +19,6 @@ class TodoController < ApplicationController
   def update
     @todo = Todo.find params[:id]
     @todo.complete
-    render json: @todo
   end
 
   private
