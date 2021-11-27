@@ -9,6 +9,7 @@ class TodoController < ApplicationController
       @project_last = Project.last
       @todo[:project_id] = @project_last.id
       @todo.save
+      render json: @project
     else
       @todo = Todo.new(todo_params)
       @todo.save
